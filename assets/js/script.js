@@ -100,7 +100,7 @@ so we can perform mathmatical operations on it (as a number, not a string)
     } else if (operator === 'x') {
         return [operand1 * operand2, 'multiply']; // returns an Array
     } else if (operator === '-') {
-        return [operand1 - operand2, 'suntract'];
+        return [operand1 - operand2, 'subtract'];
     } else if (operator === '÷') {
         return [operand1 / operand2, 'division'];
     } else {
@@ -137,8 +137,9 @@ function displayAdditionQuestion(operand1, operand2) {
 }
 
 function displaySubtractQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
+// Js ternary if function: if operand 1 is bigger, return that. If operand 2 is bigger, return that:
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById('operator').textContent = '-';
 }
 
