@@ -26,10 +26,21 @@ This will be stored in that variables button_ on each iteration.
             } 
         });
     }
+/*
+Press 'Enter' to submit:
+Get answer box element, add a keydown listner to, then send in an event object via a function(). 
+Then check a property of the event, is the keydown event equal in valus and type to the 'Enter' key?
+If it was, we are going to call our chackAnswer() function that is behind the submit process  
+*/
+    document.getElementById('answer-box').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    })
 
     runGame('addition');
 
-});
+})
 /*
 Inside the code block 'this' refers to the button that was just clicked so if we click the addition button then 'this' is referring to that specific button just clicked.
 If we click the submit button  then 'this' is referring to that specific button clicked.
@@ -40,6 +51,11 @@ If we click the submit button  then 'this' is referring to that specific button 
  * and after the user's answer has been processed
  */
 function runGame(gameType) { // game type being passed into function
+
+    document.getElementById('answer-box').value = ''; // sets the answer box to " " after each submission
+
+    document.getElementById('answer-box').focus(); // returns the cursor to the ready box after each submission
+
     // creates two random numbers between 1 and 25 (including 25)
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
