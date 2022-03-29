@@ -40,7 +40,7 @@ If we click the submit button  then 'this' is referring to that specific button 
  * and after the user's answer has been processed
  */
 function runGame(gameType) { // game type being passed into function
-    // creates two random numbers between 1 and 25
+    // creates two random numbers between 1 and 25 (including 25)
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
@@ -63,11 +63,13 @@ function checkAnswer() {
 
     if (isCorrect) {// shorthand for if (isCorrect = true);
         alert('Hey! You got it right! :D'); // true
+        incrementScore();
     } else {
         alert(`Awww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`); // if false
+        incrementWrongAnswer();
     }
 
-    runGame(calculatedAnswer[1]); // to run another  game of the same type; use the second element [1] from our calculated correct answer array.
+    runGame(calculatedAnswer[1]); // to run another game of the same type after this one; however use the second element [1] from our calculated correct answer array.
 }
 
 /**
@@ -83,7 +85,7 @@ a reverse of what we did before when we set the  values of operand 1, operand 2 
 parseInt to change the 'string' (user entered) data from the DOM treat the value as a whole integer
 so we can perform mathmatical operations on it (as a number, not a string)
 */
-    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand1 = parseInt(document.getElementById('operand1').innerText); // innerText retrieves or sets the text content of element operand1
     let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById('operator').innerText; 
 
@@ -94,13 +96,26 @@ so we can perform mathmatical operations on it (as a number, not a string)
         throw `Unimplemented operator ${operator}. Aborting!`;
     }
 }
-
+/**
+ * Gets the cuurrent score from the DOM and increments it by 1
+ */
 function incrementScore() {
-
+    let oldScore = parseInt(document.getElementById('score').innerText); // could use innerContent also
+    document.getElementById('score').innerText = ++oldScore;
+     // could have used 'oldScore +1' 
+    // document.getElementById('score').innerText = oldScore++; // 'writes it back to DOM' then 'adds one'...
+    /*
+    With oldScore++; JavaScript will get the ID of 'score', then set the inner text to the old score variable
+    and then add one to old score. The result is that we never see the score being updated, because it's been written back to the DOM before it has had one added to it. 
+    */
 }
 
+/**
+ * Gets the cuurrent tally of incorrect answers from the DOM and increments it by 1
+ */
 function incrementWrongAnswer() {
-
+    let oldScore = parseInt(document.getElementById('incorrect').innerText); // could use innerContent also
+    document.getElementById('incorrect').innerText = ++oldScore;
 }
 
 function displayAdditionQuestion(operand1, operand2) {
